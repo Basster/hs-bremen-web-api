@@ -17,4 +17,15 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
+    </filter>
+
+    <!-- remove comments for code-coverage report -->
+    <!--<logging>-->
+    <!--<log type="coverage-html" target="../coverage" charset="UTF-8" highlight="false" lowUpperBound="35" highLowerBound="70"/>-->
+    <!--</logging>-->
 </phpunit>
