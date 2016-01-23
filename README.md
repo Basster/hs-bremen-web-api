@@ -9,7 +9,7 @@
 - Einen Editor (vorzugsweise PhpStorm)
 
 ## Initiales Setup
-1. Klone dieses Repository `git clone git@bitbucket.org:Basster/hs-bremen-web-api.git`
+1. Klone dieses Repository `git clone git@github.com:Basster/hs-bremen-web-api.git`
 2. Wechsel in das Verzeichnis `cd hs-bremen-web-api`
 3. Starte die VM mit `vagrant up`
 4. Warte bis die VM erstellt wurde, währenddessen folgendes, als neue Zeile, in die Datei `C:\Windows\System32\drivers\etc\hosts` bzw. `/etc/hosts/` eintragen (Als Administrator/root bearbeiten):  
