@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class OrderService
 {
     /**
-     * GET /
+     * GET /order
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
