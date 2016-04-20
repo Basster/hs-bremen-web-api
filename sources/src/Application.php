@@ -3,10 +3,18 @@
 namespace HsBremen\WebApi;
 
 use HsBremen\WebApi\Order\OrderService;
+use HsBremen\WebApi\Swagger\SwaggerProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class Application
+ *
+ * @package HsBremen\WebApi
+ * @SWG\Info(title="My First API", version="0.1")
+ */
 class Application extends Silex
 {
     public function __construct(array $values = [])
@@ -15,6 +23,10 @@ class Application extends Silex
         $this->register(new ServiceControllerServiceProvider());
 
         $app = $this;
+
+        $app['base_path'] = __DIR__;
+
+        $this->register(new SwaggerProvider());
 
         // Nutzt Pimple DI-Container: https://github.com/silexphp/Pimple/tree/1.1
         $app['service.order'] = $app->share(function () {
