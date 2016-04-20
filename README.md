@@ -65,6 +65,8 @@ php vendor/bin/phpunit -c phpunit.xml.dist
 ```
 oder über die IDE
 
+TODO: PhpStorm Setup beschreiben!
+
 
 
 
