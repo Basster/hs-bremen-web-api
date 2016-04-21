@@ -2,8 +2,8 @@
 
 namespace HsBremen\WebApi;
 
+use Basster\Silex\Provider\Swagger\SwaggerProvider;
 use HsBremen\WebApi\Order\OrderService;
-use HsBremen\WebApi\Swagger\SwaggerProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Swagger\Annotations as SWG;
@@ -26,7 +26,9 @@ class Application extends Silex
 
         $app['base_path'] = __DIR__;
 
-        $this->register(new SwaggerProvider());
+        $this->register(new SwaggerProvider(), [
+          "swagger.servicePath" => __DIR__,
+        ]);
 
         // Nutzt Pimple DI-Container: https://github.com/silexphp/Pimple/tree/1.1
         $app['service.order'] = $app->share(function () {
