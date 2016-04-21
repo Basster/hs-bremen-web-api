@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "basster/silex-simple-swagger-provider",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Basster/silex-simple-swagger-provider.git",
-                "reference": "f95f644145be8dc036f6419a72016ee67d4c5dc2"
+                "reference": "ced8de06ed2156e55da30e48f1a8fedfd10c1977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Basster/silex-simple-swagger-provider/zipball/f95f644145be8dc036f6419a72016ee67d4c5dc2",
-                "reference": "f95f644145be8dc036f6419a72016ee67d4c5dc2",
+                "url": "https://api.github.com/repos/Basster/silex-simple-swagger-provider/zipball/ced8de06ed2156e55da30e48f1a8fedfd10c1977",
+                "reference": "ced8de06ed2156e55da30e48f1a8fedfd10c1977",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "swagger",
                 "swagger-ui"
             ],
-            "time": "2016-04-21 07:56:59"
+            "time": "2016-04-21 12:36:44"
         },
         {
             "name": "doctrine/annotations",
