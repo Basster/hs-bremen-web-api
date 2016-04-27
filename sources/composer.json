@@ -2,7 +2,9 @@
     "name": "hs-bremen/web-api",
     "require": {
         "silex/silex": "^1.3",
-        "basster/silex-simple-swagger-provider": "^1.0"
+        "basster/silex-simple-swagger-provider": "^1.0",
+        "symfony/security": "^3.0",
+        "jdesrosiers/silex-cors-provider": "^0.1.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1"

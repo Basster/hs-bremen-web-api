@@ -65,6 +65,16 @@ php vendor/bin/phpunit -c phpunit.xml.dist
 ```
 oder über die IDE
 
+## Swagger UI Standalone
+
+https://github.com/swagger-api/swagger-ui#build  
+
+Benötigt npm und python! 
+ 
+- npm install
+- npm run serve
+- Browser: http://localhost:8080/
+  
 TODO: PhpStorm Setup beschreiben!
 
 

@@ -3,7 +3,10 @@
 namespace HsBremen\WebApi;
 
 use Basster\Silex\Provider\Swagger\SwaggerProvider;
-use HsBremen\WebApi\Order\OrderService;
+use Basster\Silex\Provider\Swagger\SwaggerServiceKey;
+use HsBremen\WebApi\Order\OrderServiceProvider;
+use HsBremen\WebApi\Security\SecurityProvider;
+use JDesrosiers\Silex\Provider\CorsServiceProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Swagger\Annotations as SWG;
@@ -13,7 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Application
  *
  * @package HsBremen\WebApi
- * @SWG\Info(title="My First API", version="0.1")
+ * @SWG\Swagger(
+ *     consumes={"application/json"},
+ *     produces={"application/json"},
+ *     basePath="/",
+ *     host="web-api.vm"
+ * )
+ * @SWG\Info(
+ *     title="My First API",
+ *     version="0.1"
+ * )
  */
 class Application extends Silex
 {
@@ -27,19 +39,16 @@ class Application extends Silex
         $app['base_path'] = __DIR__;
 
         $this->register(new SwaggerProvider(), [
-          "swagger.servicePath" => __DIR__,
+          SwaggerServiceKey::SWAGGER_SERVICE_PATH => $app['base_path'],
+          SwaggerServiceKey::SWAGGER_API_DOC_PATH => '/docs/swagger.json',
         ]);
 
-        // Nutzt Pimple DI-Container: https://github.com/silexphp/Pimple/tree/1.1
-        $app['service.order'] = $app->share(function () {
-            return new OrderService();
-        });
+        // enable cross origin requests!
+        $app->register(new CorsServiceProvider());
 
-        // Order Routen
-        $this->get('/order', 'service.order:getList');
-        $this->get('/order/{orderId}', 'service.order:getDetails');
-        $this->post('/order', 'service.order:createOrder');
-        $this->put('/order/{orderId}', 'service.order:changeOrder');
+        // al about orders
+        $this->register(new OrderServiceProvider());
+        $this->register(new SecurityProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html
         $this->before(function (Request $request) use ($app) {
@@ -48,6 +57,8 @@ class Application extends Silex
                 $request->request->replace(is_array($data) ? $data : []);
             }
         });
+
+        $app->after($app['cors']);
     }
 
     private function requestIsJson(Request $request)
