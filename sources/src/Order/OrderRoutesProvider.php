@@ -16,20 +16,23 @@ class OrderRoutesProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * @SWG\Parameter(name="id-in-path", type="integer", format="int32", in="path")
+         * @SWG\Parameter(name="id", type="integer", format="int32", in="path")
+         * @SWG\Tag(name="order", description="All about orders")
          */
 
         /**
          * @SWG\Get(
          *     path="/order",
+         *     tags={"order"},
          *     @SWG\Response(response="200", description="An example resource")
          * )
          */
         $controllers->get('', 'service.order:getList');
         /**
          * @SWG\Get(
-         *     path="/order/{orderId}",
-         *     @SWG\Parameter(ref="#/parameters/id-in-path", name="orderId"),
+         *     path="/order/{id}",
+         *     tags={"order"},
+         *     @SWG\Parameter(ref="#/parameters/id"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
@@ -40,6 +43,7 @@ class OrderRoutesProvider implements ControllerProviderInterface
         $controllers->get('/{orderId}', 'service.order:getDetails');
         /**
          * @SWG\Post(
+         *     tags={"order"},
          *     path="/order",
          *     @SWG\Parameter(name="order", in="body", @SWG\Schema(ref="#/definitions/order")),
          *     @SWG\Response(response="201", description="An example resource")
@@ -48,8 +52,9 @@ class OrderRoutesProvider implements ControllerProviderInterface
         $controllers->post('', 'service.order:createOrder');
         /**
          * @SWG\Put(
-         *     path="/order/{orderId}",
-         *     @SWG\Parameter(ref="#/parameters/id-in-path", name="orderId"),
+         *     tags={"order"},
+         *     path="/order/{id}",
+         *     @SWG\Parameter(ref="#/parameters/id"),
          *     @SWG\Response(
          *          response="200",
          *          description="An example resource",

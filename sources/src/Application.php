@@ -10,6 +10,7 @@ use JDesrosiers\Silex\Provider\CorsServiceProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Swagger\Annotations as SWG;
+use SwaggerUI\Silex\Provider\SwaggerUIServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -41,6 +42,11 @@ class Application extends Silex
         $this->register(new SwaggerProvider(), [
           SwaggerServiceKey::SWAGGER_SERVICE_PATH => $app['base_path'],
           SwaggerServiceKey::SWAGGER_API_DOC_PATH => '/docs/swagger.json',
+        ]);
+
+        $app->register(new SwaggerUIServiceProvider(), [
+          'swaggerui.path' => '/docs/swagger',
+          'swaggerui.docs' => '/docs/swagger.json',
         ]);
 
         // enable cross origin requests!

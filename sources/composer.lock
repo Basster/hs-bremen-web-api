@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9c3d2bf20c0a9d825019bd28d79e4f4e",
-    "content-hash": "38a232b442be6cecf0039f546ee142c9",
+    "hash": "1b9ea16f7903509473074d0eb17b31dc",
+    "content-hash": "f3fa3ec840eef4570d39fc2bd30ac0dc",
     "packages": [
         {
             "name": "basster/silex-simple-swagger-provider",
@@ -226,6 +226,43 @@
                 "silex"
             ],
             "time": "2015-09-12 22:16:14"
+        },
+        {
+            "name": "kbrabrand/silex-swagger-ui",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:Ard-Jan/silex-swagger-ui.git",
+                "reference": "68482ee4e40e60019f095caae6fe44b75cd2eda1"
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "silex/silex": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SwaggerUI": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristoffer Brabrand",
+                    "email": "kristoffer@brabrand.no"
+                }
+            ],
+            "description": "A silex service provider that integrates the Swagger UI documentation browser into silex",
+            "keywords": [
+                "provider",
+                "service",
+                "silex",
+                "swagger",
+                "swagger-ui"
+            ],
+            "time": "2015-10-07 11:53:14"
         },
         {
             "name": "paragonie/random_compat",
