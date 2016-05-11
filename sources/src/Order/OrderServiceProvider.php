@@ -10,8 +10,12 @@ class OrderServiceProvider implements ServiceProviderInterface
     /** {@inheritdoc} */
     public function register(Application $app)
     {
-        $app['service.order'] = $app->share(function () {
-            return new OrderService();
+        $app['repo.order'] = $app->share(function (Application $app) {
+            return new OrderRepository($app['db']);
+        });
+
+        $app['service.order'] = $app->share(function (Application $app) {
+            return new OrderService($app['repo.order']);
         });
 
         $app->mount('/order', new OrderRoutesProvider());
@@ -20,5 +24,8 @@ class OrderServiceProvider implements ServiceProviderInterface
     /** {@inheritdoc} */
     public function boot(Application $app)
     {
+        /** @var OrderRepository $repo */
+        $repo = $app['repo.order'];
+        $repo->createTable();
     }
 }

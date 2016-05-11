@@ -28,9 +28,28 @@ class Order implements \JsonSerializable
      */
     private $status = 'placed';
 
-    public function __construct($id)
+    public function __construct($id = null)
     {
         $this->id = $id;
+    }
+
+    public static function createFromArray(array $row)
+    {
+        $order = new self();
+        if (array_key_exists('id', $row)) {
+            $order->setId($row['id']);
+        }
+        $order->setStatus($row['status']);
+
+        return $order;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function setId($id)
@@ -44,5 +63,21 @@ class Order implements \JsonSerializable
           'id'     => $this->id,
           'status' => $this->status,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

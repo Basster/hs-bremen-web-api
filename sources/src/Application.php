@@ -4,6 +4,7 @@ namespace HsBremen\WebApi;
 
 use Basster\Silex\Provider\Swagger\SwaggerProvider;
 use Basster\Silex\Provider\Swagger\SwaggerServiceKey;
+use HsBremen\WebApi\Database\DatabaseProvider;
 use HsBremen\WebApi\Order\OrderServiceProvider;
 use HsBremen\WebApi\Security\SecurityProvider;
 use JDesrosiers\Silex\Provider\CorsServiceProvider;
@@ -39,18 +40,23 @@ class Application extends Silex
 
         $app['base_path'] = __DIR__;
 
-        $this->register(new SwaggerProvider(), [
-          SwaggerServiceKey::SWAGGER_SERVICE_PATH => $app['base_path'],
-          SwaggerServiceKey::SWAGGER_API_DOC_PATH => '/docs/swagger.json',
-        ]);
+        $this->register(new SwaggerProvider(),
+                        [
+                          SwaggerServiceKey::SWAGGER_SERVICE_PATH => $app['base_path'],
+                          SwaggerServiceKey::SWAGGER_API_DOC_PATH => '/docs/swagger.json',
+                        ]);
 
-        $app->register(new SwaggerUIServiceProvider(), [
-          'swaggerui.path' => '/docs/swagger',
-          'swaggerui.docs' => '/docs/swagger.json',
-        ]);
+        $app->register(new SwaggerUIServiceProvider(),
+                       [
+                         'swaggerui.path' => '/docs/swagger',
+                         'swaggerui.docs' => '/docs/swagger.json',
+                       ]);
 
         // enable cross origin requests!
         $app->register(new CorsServiceProvider());
+
+        // enable database connection
+        $app->register(new DatabaseProvider());
 
         // al about orders
         $this->register(new OrderServiceProvider());

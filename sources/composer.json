@@ -11,7 +11,8 @@
         "basster/silex-simple-swagger-provider": "^1.0",
         "symfony/security": "^3.0",
         "jdesrosiers/silex-cors-provider": "^0.1.5",
-        "kbrabrand/silex-swagger-ui": "^2.0"
+        "kbrabrand/silex-swagger-ui": "^2.0",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1"

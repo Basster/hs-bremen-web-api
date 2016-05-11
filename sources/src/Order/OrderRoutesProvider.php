@@ -22,12 +22,13 @@ class OrderRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/order",
+         *     path="/order/",
          *     tags={"order"},
          *     @SWG\Response(response="200", description="An example resource")
          * )
          */
-        $controllers->get('', 'service.order:getList');
+        // see https://github.com/silexphp/Silex/issues/149
+        $controllers->get('/', 'service.order:getList');
         /**
          * @SWG\Get(
          *     path="/order/{id}",
@@ -44,12 +45,12 @@ class OrderRoutesProvider implements ControllerProviderInterface
         /**
          * @SWG\Post(
          *     tags={"order"},
-         *     path="/order",
+         *     path="/order/",
          *     @SWG\Parameter(name="order", in="body", @SWG\Schema(ref="#/definitions/order")),
          *     @SWG\Response(response="201", description="An example resource")
          * )
          */
-        $controllers->post('', 'service.order:createOrder');
+        $controllers->post('/', 'service.order:createOrder');
         /**
          * @SWG\Put(
          *     tags={"order"},

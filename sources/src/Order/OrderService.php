@@ -8,6 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderService
 {
+    /** @var  OrderRepository */
+    private $orderRepository;
+
+    /**
+     * OrderService constructor.
+     *
+     * @param OrderRepository $orderRepository
+     */
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     /**
      * GET /order
      *
@@ -15,11 +28,7 @@ class OrderService
      */
     public function getList()
     {
-        $orders = [
-          new Order(2),
-          new Order(3),
-        ];
-        return new JsonResponse($orders);
+        return new JsonResponse($this->orderRepository->getAll());
     }
 
     /**
@@ -31,7 +40,7 @@ class OrderService
      */
     public function getDetails($orderId)
     {
-        return new JsonResponse(new Order($orderId));
+        return new JsonResponse($this->orderRepository->getById($orderId));
     }
 
     /**
@@ -43,8 +52,14 @@ class OrderService
      */
     public function createOrder(Request $request)
     {
-        return new JsonResponse(new Order($request->request->get('id', 0)),
-          201);
+        $postData = $request->request->all();
+        unset($postData['id']);
+
+        $order = Order::createFromArray($postData);
+
+        $this->orderRepository->save($order);
+
+        return new JsonResponse($order, 201);
     }
 
     /**
@@ -59,6 +74,7 @@ class OrderService
         $order = new Order(1);
         $newId = $request->request->get('id', 0);
         $order->setId($newId);
+
         return new JsonResponse($order);
     }
 }
