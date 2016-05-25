@@ -80,7 +80,7 @@ EOS;
         $data = $order->jsonSerialize();
         unset($data['id']);
 
-        $this->connection->insert("`{$this->getTableName()}`", $data);
+        $this->connection->insert($this->getTableName(), $data);
         $order->setId($this->connection->lastInsertId());
     }
 }

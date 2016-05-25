@@ -3,6 +3,7 @@
 namespace HsBremen\WebApi\Order;
 
 use HsBremen\WebApi\Entity\Order;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,14 +12,21 @@ class OrderService
     /** @var  OrderRepository */
     private $orderRepository;
 
+    /** @var  EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * OrderService constructor.
      *
-     * @param OrderRepository $orderRepository
+     * @param OrderRepository          $orderRepository
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(OrderRepository $orderRepository)
-    {
+    public function __construct(
+      OrderRepository $orderRepository,
+      EventDispatcherInterface $eventDispatcher
+    ) {
         $this->orderRepository = $orderRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -40,7 +48,12 @@ class OrderService
      */
     public function getDetails($orderId)
     {
-        return new JsonResponse($this->orderRepository->getById($orderId));
+        $event = new OrderEvent();
+        $event->setOrderId($orderId);
+
+        $this->eventDispatcher->dispatch(OrderEvent::GET_DETAILS, $event);
+
+        return new JsonResponse($event->getOrder());
     }
 
     /**

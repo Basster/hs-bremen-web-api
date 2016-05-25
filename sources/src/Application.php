@@ -5,6 +5,8 @@ namespace HsBremen\WebApi;
 use Basster\Silex\Provider\Swagger\SwaggerProvider;
 use Basster\Silex\Provider\Swagger\SwaggerServiceKey;
 use HsBremen\WebApi\Database\DatabaseProvider;
+use HsBremen\WebApi\Error\ErrorProvider;
+use HsBremen\WebApi\Logging\LoggingProvider;
 use HsBremen\WebApi\Order\OrderServiceProvider;
 use HsBremen\WebApi\Security\SecurityProvider;
 use JDesrosiers\Silex\Provider\CorsServiceProvider;
@@ -38,7 +40,8 @@ class Application extends Silex
 
         $app = $this;
 
-        $app['base_path'] = __DIR__;
+        $app['base_path']    = __DIR__;
+        $app['logging_path'] = $app['base_path'] . '/../logs';
 
         $this->register(new SwaggerProvider(),
                         [
@@ -52,6 +55,9 @@ class Application extends Silex
                          'swaggerui.docs' => '/docs/swagger.json',
                        ]);
 
+        // logging
+        $this->register(new LoggingProvider());
+
         // enable cross origin requests!
         $app->register(new CorsServiceProvider());
 
@@ -61,6 +67,9 @@ class Application extends Silex
         // al about orders
         $this->register(new OrderServiceProvider());
         $this->register(new SecurityProvider());
+
+        // error handling
+        $this->register(new ErrorProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html
         $this->before(function (Request $request) use ($app) {

@@ -17,12 +17,13 @@ class OrderRoutesProviderTest extends \PHPUnit_Framework_TestCase
     {
         $provider = new OrderRoutesProvider();
 
+        /** @var ControllerCollection $controllerFactory */
         $controllerFactory = $this->prophesize(ControllerCollection::class);
-        $controllerFactory->get('', 'service.order:getList')->shouldBeCalled();
+        $controllerFactory->get('/', 'service.order:getList')->shouldBeCalled();
         $controllerFactory->get('/{orderId}', 'service.order:getDetails')
                           ->shouldBeCalled()
         ;
-        $controllerFactory->post('', 'service.order:createOrder')
+        $controllerFactory->post('/', 'service.order:createOrder')
                           ->shouldBeCalled()
         ;
         $controllerFactory->put('/{orderId}', 'service.order:changeOrder')

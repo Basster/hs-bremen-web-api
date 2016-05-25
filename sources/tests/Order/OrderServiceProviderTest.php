@@ -8,6 +8,8 @@ use Doctrine\DBAL\Connection;
 use HsBremen\WebApi\Order\OrderRepository;
 use HsBremen\WebApi\Order\OrderService;
 use HsBremen\WebApi\Order\OrderServiceProvider;
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
 use Silex\Application;
 
 class OrderServiceProviderTest extends \PHPUnit_Framework_TestCase
@@ -32,6 +34,7 @@ class OrderServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $app['repo.order'] = $orderRepo;
         $app['db']         = $connection;
+        $app['api_logger'] = new Logger('test', [new TestHandler()]);
 
         $provider->register($app);
 
