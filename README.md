@@ -75,8 +75,3 @@ Benötigt npm und python!
 - npm run serve
 - Browser: http://localhost:8080/
   
-TODO: PhpStorm Setup beschreiben!
-
-
-
-
